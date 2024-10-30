@@ -17,9 +17,11 @@ const Register = () => {
 
       const name = data.data.data.userName;
       const phone = data.data.data.phoneNumber;
+      const id = data.data.data.id;
+
       localStorage.setItem("name", JSON.stringify(name));
       localStorage.setItem("phone", JSON.stringify(phone));
-
+      localStorage.setItem("id", JSON.stringify(id));
       navigate("/home");
     } catch (error) {
       console.log(error);
