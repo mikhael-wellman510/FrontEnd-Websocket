@@ -25,7 +25,17 @@ const HomeRight = () => {
         console.log("Connect To Websocket");
         // Ini Get Message
         stompClient.subscribe("/topic/greetings", (message) => {
-          console.log("Received Message", JSON.parse(message.body));
+          // console.log("Received Message", JSON.parse(message.body.name));
+          const data = JSON.parse(message.body);
+          console.log("cekks ", data);
+
+          setPesan((prevPesan) => [
+            ...prevPesan,
+            {
+              name: data.name,
+              message: data.content,
+            },
+          ]);
         });
       },
       onStompError: (frame) => {
@@ -52,13 +62,11 @@ const HomeRight = () => {
         destination: "/app/hello",
         body: JSON.stringify({ content: message, name: nameFromStorage }),
       });
-
-      setPesan((prevPesan) => [
-        ...prevPesan,
-        { name: nameFromStorage, message: message },
-      ]);
     }
   };
+
+  console.log("pesan : ", pesan);
+
   return (
     <div className="h-screen">
       <div className="flex items-center gap-4 px-2 h-[7.7%] w-full bg-gray-100">
@@ -69,8 +77,25 @@ const HomeRight = () => {
           <p>Yazid Irfan</p>
         </div>
       </div>
-      <div className="flex bg-white h-[85%]">
-        <p>Tes</p>
+      <div className="flex flex-col  bg-white h-[85%] py-2 px-6">
+        <div className="overflow-y-auto h-[30rem] flex flex-col-reverse">
+          {pesan.map((val, idx) => (
+            <div
+              key={idx}
+              className={`flex ${
+                val.name != nameFromStorage ? "justify-start" : "justify-end"
+              }`}
+            >
+              <div
+                className={`border px-6 py-2 ${
+                  val.name != nameFromStorage ? "bg-white" : "bg-green-100"
+                } rounded`}
+              >
+                <p className="">{val.message}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
       <form onSubmit={HandleSubmit}>
         <div className="relative flex items-center w-full bg-red-100 h-[2.8rem]">
