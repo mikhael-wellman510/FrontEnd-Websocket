@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import user from "../assets/user.svg";
+import axios from "axios";
+import { URL } from "../dami/Url";
 const ListContact = ({ isOpen, onClose, onSubmit }) => {
-  const contact = [
-    { nama: "mike", nomor: "089715151523" },
-    { nama: "mike", nomor: "089715151523" },
-    { nama: "mike", nomor: "089715151523" },
-    { nama: "mike", nomor: "089715151523" },
-    { nama: "mike", nomor: "089715151523" },
-    { nama: "mike", nomor: "089715151523" },
-    { nama: "mike", nomor: "089715151523" },
-  ];
+  const [listKontak, setListKontak] = useState([]);
+
+  const fetchContacts = async () => {
+    const getId = JSON.parse(localStorage.getItem("id"));
+    try {
+      const response = await axios.get(`${URL}/contacts/listContacts/${getId}`);
+      setListKontak(response.data.data);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    fetchContacts();
+  }, [isOpen]);
 
   if (!isOpen) {
     return;
@@ -23,15 +29,18 @@ const ListContact = ({ isOpen, onClose, onSubmit }) => {
             <p>List Contact Anda</p>
           </div>
           <div className="flex flex-col gap-2 px-6">
-            {contact.map((val, idx) => (
-              <div className="flex items-center px-6 gap-4 border border-black">
+            {listKontak.map((val, idx) => (
+              <div
+                key={idx}
+                className="flex items-center px-6 gap-4 border border-black"
+              >
                 <div className="flex items-center gap-4">
                   <div className="w-6">
                     <img src={user} alt="" />
                   </div>
                   <div>
-                    <p>Mikhael</p>
-                    <p>0897161616227</p>
+                    <p>{val.name}</p>
+                    <p>{val.contactsId.phoneNumber}</p>
                   </div>
                 </div>
 

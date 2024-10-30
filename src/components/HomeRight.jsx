@@ -7,8 +7,11 @@ import { Client } from "@stomp/stompjs";
 // https://medium.com/@deshanipalliyaguruge2000/sending-broadcast-notifications-with-websocket-spring-boot-react-stomp-and-sockjs-50d99352c5bb
 const HomeRight = () => {
   const [message, setMessage] = useState("");
+  const [pesan, setPesan] = useState([]);
   const [name, setName] = useState("");
   const stompClientRef = useRef(null);
+
+  const nameFromStorage = JSON.parse(localStorage.getItem("name"));
 
   useEffect(() => {
     const socket = new SockJS("http://localhost:8080/gs-guide-websocket");
@@ -42,14 +45,18 @@ const HomeRight = () => {
   const HandleSubmit = (e) => {
     e.preventDefault();
     const stompClient = stompClientRef.current;
-    console.log("cek connected : ", stompClient.connected);
 
     if (stompClient && stompClient.connected) {
       // Ini Kirim Pesan
       stompClient.publish({
         destination: "/app/hello",
-        body: JSON.stringify(message),
+        body: JSON.stringify({ content: message, name: nameFromStorage }),
       });
+
+      setPesan((prevPesan) => [
+        ...prevPesan,
+        { name: nameFromStorage, message: message },
+      ]);
     }
   };
   return (
