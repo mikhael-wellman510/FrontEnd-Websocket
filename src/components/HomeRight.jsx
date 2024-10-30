@@ -66,14 +66,16 @@ const HomeRight = () => {
         <p>Tes</p>
       </div>
       <form onSubmit={HandleSubmit}>
-        <div className="relative flex items-center px-2 bg-gray-200 h-[7.3%]">
-          <input
-            className="h-[2rem] w-full rounded"
-            style={{ outline: "none" }}
-            type="text"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          />
+        <div className="relative flex items-center w-full bg-red-100 h-[2.8rem]">
+          <div className="px-4">
+            <input
+              className="h-[2rem] w-[53rem]  rounded border-2 "
+              style={{ outline: "none" }}
+              type="text"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
+          </div>
 
           <div className="absolute top-[0.7rem] right-5">
             <button type="submit">

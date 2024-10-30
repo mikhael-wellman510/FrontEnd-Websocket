@@ -5,7 +5,9 @@ import { URL } from "../dami/Url";
 const AddKontak = ({ isOpen, onClose, onSubmit }) => {
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-
+  if (!isOpen) {
+    return;
+  }
   const HandleSubmit = async (e) => {
     e.preventDefault();
 
@@ -29,10 +31,6 @@ const AddKontak = ({ isOpen, onClose, onSubmit }) => {
     }
     onClose(false);
   };
-
-  if (!isOpen) {
-    return;
-  }
 
   return (
     <>

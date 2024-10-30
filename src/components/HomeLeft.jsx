@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import yazid from "../assets/yazid.jpeg";
 import AddKontak from "../modal/AddKontak";
+import ListContact from "../modal/ListContact";
 const HomeLeft = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [isModalOpenListContact, setIsModalOpenListContact] = useState(false);
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -56,13 +57,20 @@ const HomeLeft = () => {
           >
             <p className="text-xs">Add Kontak</p>
           </div>
-          <div className="border p-2 bg-green-100">
+          <div
+            onClick={() => setIsModalOpenListContact(true)}
+            className="border p-2 bg-green-100 cursor-pointer"
+          >
             <p className="text-xs">List Kontak</p>
           </div>
         </div>
       </div>
 
       <AddKontak isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <ListContact
+        isOpen={isModalOpenListContact}
+        onClose={() => setIsModalOpenListContact(false)}
+      />
     </>
   );
 };
