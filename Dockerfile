@@ -15,4 +15,5 @@ RUN npm run build
 # Definikan port yang akan digunakan dalam container docker
 EXPOSE 3000
 # Jalankan npm run start di terminal
-CMD ["npm", "run", "dev"]    
+# Dockerfile
+CMD ["npm", "run", "dev", "--", "--host"]
