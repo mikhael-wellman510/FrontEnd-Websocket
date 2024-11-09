@@ -14,7 +14,7 @@ const HomeRight = () => {
   const nameFromStorage = JSON.parse(localStorage.getItem("name"));
 
   useEffect(() => {
-    const socket = new SockJS("http://localhost:8080/gs-guide-websocket");
+    const socket = new SockJS("http://202.10.41.155:8000/gs-guide-websocket");
     const stompClient = new Client({
       webSocketFactory: () => socket,
       reconnectDelay: 5000,
